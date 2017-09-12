@@ -11,6 +11,7 @@ Ex: black_mamba.c
 
 We also learned how to compile a C file. One "inconvenience" of C is that it doesn't recognize your file name when you compile the code, instead creating an output file called "a.out", which stands for "assembler output." There are ways to change that output file name. Here's an example of what you'd write in your terminal if you were trying to compile black_mamba.c:
 <blockquote>
+   
     $ gcc black_mamba.c #Creates a.out files  
     
     $ ./a.out #output of black_mamba.c  
