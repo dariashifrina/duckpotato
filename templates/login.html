@@ -1,121 +1,27 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  <title>Greyduck Girls</title>
-  <style>
-  @font-face {
-  font-family: myFirstFont;
-  src: url('Wrexham.ttf');
-  }
-  h1 {
-  font-family: myFirstFont;
-  font-size: 60px;
-  text-align: center;
-  color: black;
-  text-shadow: 2px 2px 2px;
-  }
-  div.transbox {
-  margin: 30px;
-  background-color: #ffffff;
-  border: 1px solid black;
-  opacity: 0.6;
-  filter: alpha(opacity=60); /* For IE8 and earlier */
-}
-
-div.transbox p {
-  margin: 5%;
-  font-weight: bold;
-  color: #000000;
-}
-  ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-  margin: auto;
-  text-align: center;
-  }
-  .active {
-  background-color: lightskyblue;
-  }
-/*    img {
-      background-size: cover;
-  background-position: center top;
-  background-position-x: center;
-  background-position-y: top;
-  background-repeat: no-repeat;
-  width: 100%;
-  } */
-  li {
-      text-align:center; 
-      display: inline-block;
-  }
-
-  li a, .dropbtn {
-      display: inline-block;
-      color: white;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-  }
-
-  li a:hover, .dropdown:hover .dropbtn {
-      background-color: lightblue;
-  }
-
-  li.dropdown {
-      display: inline-block;
-  }
-
-  .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-  }
-
-  .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      text-align: center;
-  }
-
-  .dropdown-content a:hover {background-color: #f1f1f1}
-
-  .dropdown:hover .dropdown-content {
-      display: block;
-  }
-</style>
-</head>
-<body background="greyduckgirls.jpg">
-<ul>
+{% extends "base.html" %}
+{% block title %}Greyduck Login{% endblock %}
+{% block navbar %}
   <li><a href="/">Home</a></li>
   <li><a href="/news">News</a></li>
   <li><a href="/calendar">Calendar</a></li>
   <li class="dropdown">
       <a href="javascript:void(0)" class="dropbtn">Athletes</a>
       <div class="dropdown-content">
-      <a href="/distance">Distance</a>
-      <a href="/racewalkers">Racewalkers</a>
-      <a href="/sprinters">Sprinters</a>
-      <a href="/fieldeventers">Field Eventers</a>
+        <a href="/distance">Distance</a>
+        <a href="/racewalkers">Racewalkers</a>
+        <a href="/sprinters">Sprinters</a>
+        <a href="/fieldeventers">Field Eventers</a>
       </div>
-  </li>
+    </li>
   <li><a href="/resources">Resources</a></li>
-  <li><a href="/login">Login</a></li>
-</ul>
-<div class="transbox">
-    <h1> Login</h1>
-    <form action="/login" method="post">
-      Username:<input type="text" name="username" required></br>
-      Password:<input type="password" name="password" required></br>
-     <input type="submit">
-    </form>
-  </div>
-  </body>
-</html>
+  <li><a class="active" href="/login">Login</a></li>
+
+{% endblock %}  
+{% block body %}
+<h1> Login</h1>
+<form action="/login" method="post">
+  Username:<input type="text" name="username" required></br>
+  Password:<input type="password" name="password" required></br>
+ <input type="submit">
+</form>
+{% endblock %}

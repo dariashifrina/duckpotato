@@ -1,46 +1,127 @@
 from flask import Flask, redirect, render_template, request, session
 from utils import accountManager, postManager, newsManager
+import os
+import commands
+import cgi
+import cgitb; cgitb.enable()
 
 app = Flask(__name__)
 app.secret_key = "hello"
 @app.route("/")
 def home():
-    return render_template("index.html")
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+    return render_template("index.html", username = username, admin = admin)
 
 @app.route("/editnews", methods=["GET","POST"]) #must put methods for forms
 def editnews():
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+        username = session["username"]
+    return redirect("/")
     r = request.form
     if "title" in r and "body" in r and "username" in session: #remember to add admin
         status = newsManager.createNewsPosts(r["title"], r["body"], session["username"])
         if status:
             return redirect("/news")
         return redirect("/editnews")
-    return render_template("editnp.html")
+    return render_template("editnp.html", admin = admin, username=username)
 
 @app.route("/news")
 def news():
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
     newsPosts = newsManager.getNewsPosts()
-    return render_template("news.html", newsPosts = newsPosts)
+    return render_template("news.html", newsPosts = newsPosts, username = username, admin = admin)
 
 
 @app.route("/calendar")
 def calendar():
-    return "Hello World!"
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+    return render_template("calendar.html",username=username,admin=admin)
 
-@app.route("/athletes")
-def athletes():
-    return "Hello World!"
 
 @app.route("/sprinters")
 def sprinters():
-    return "Hello World!"
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+    allSprinters = accountManager.getSprinters()
+    return render_template("sprinters.html", username = username, admin=admin, sprinters=allSprinters)
 
 @app.route("/distance")
 def distance():
-    return "Hello World!"
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+    allDistance = accountManager.getDistance()
+    return render_template("distance.html", username = username, admin=admin, distance = allDistance)
+
+@app.route("/fieldeventers")
+def fieldeventers():
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+    allField = accountManager.getFielders()
+    return render_template("fieldeventers.html", username = username, admin=admin, fielders = allField)
+
+@app.route("/racewalkers")
+def racewalkers():
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+    allRacewalkers = accountManager.getRacewalkers()
+    return render_template("racewalkers.html", username = username, admin=admin, racewalkers = allRacewalkers)
+
+@app.route("/athlete")
+def athlete():
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+    r = request.args
+    if "name" not in r:
+        return redirect("/athletes")
+    name = r["name"]
+    fname = name.split(" ")[0]
+    lname = name.split(" ")[1]
+    athlete = accountManager.getAthlete(fname,lname)
+    if not athlete:
+        return redirect("/athletes")
+    return render_template("athlete.html", username = username, admin=admin, athlete=athlete)
 
 @app.route("/login",methods=["GET","POST"])
 def login():
+    if "username" in session:
+        session.pop("username")
     if "username" in request.form and "password" in request.form:
         status = accountManager.login(request.form["username"],request.form["password"])
         if status == 2:
@@ -68,44 +149,148 @@ def accountsettings():
 
 @app.route("/editannouncements", methods=["GET","POST"]) #must put methods for forms
 def editannouncements():
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+        username = session["username"]
+    #return redirect("/")
     r = request.form
     if "title" in r and "body" in r and "username" in session: #remember to add admin
         status = postManager.createPost(r["title"], r["body"], session["username"])
         if status:
             return redirect("/announcements")
         return redirect("/editannouncements")
-    return render_template("editta.html")
+    return render_template("editta.html", username =username, admin = admin)
 
 @app.route("/announcements")
 def announcements():
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    else:
+        return redirect("/login")
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
     posts = postManager.getPosts()
-    return render_template("announcements.html", posts = posts)
+    return render_template("announcements.html", posts = posts, username = username, admin = admin)
 
 @app.route("/editprofile")
 def profile():
-    return "Hello World!"
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+    return render_template("editprofile.html",username=username,admin=admin)
+
+@app.route("/editProfileDesc", methods=["GET","POST"])
+def editProfileDesc():
+    # if "admin" in session:
+    #     admin = session["admin"]
+    #     username = session["username"]
+    # print("yay")
+    # return redirect("/")
+    if "username" in session:
+        username = session["username"]
+    else:
+        return redirect("/")
+    r = request.form
+    if "description" in r and "username" in session: #remember to add admin
+        body = r["description"]
+        accountManager.editProfileSettings(username, body)
+    return redirect("/")
+
+@app.route("/editProfilePic", methods=["GET","POST"])
+def editProfilePic():
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+        username = session["username"]
+    return redirect("/")
+    cgitb.enable()
+    print "Content-Type: text/html"
+    print
+    print 'start!' 
+    form = cgi.FieldStorage()
+    filedata = form['profilepic']
+    if filedata.file: # field really is an upload
+        #with open("/static/img/"+username["first-name"]+username["last-name"]+".jpeg", 'w') as output:
+            #output.write(filedata.file.read())
+        with file("hi.jpeg", 'w') as outfile:
+             outfile.write(filedata.file.read())
+    # form = cgi.FieldStorage()
+    # print "Hi"
+    # if not form.has_key("profilepic"): return
+    # fileitem = form["profilepic"]
+    # if not fileitem.file: return
+    # fout = file (os.path.join("/static/img/", fileitem.filename), 'wb')
+    # while 1:
+    #     chunk = fileitem.file.read(100000)
+    #     if not chunk: break
+    #     fout.write (chunk)
+    # fout.close()
+    return render_template("editprofile.html",username=username,admin=admin)
 
 @app.route("/editathletes",methods=["GET","POST"])
 def editathletes():
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+        username = session["username"]
+   # return redirect("/")
     r = request.form
-    if "username" in r and "password" in r and "email" in r and "first_name" in r and "last_name" in r and "types" in r and "admin" in r:
-        status = accountManager.register(r["username"],r["password"],r["email"],r["first_name"],r["last_name"],r["types"],r["admin"])
+    types = []
+    if "racewalker" in r:
+        if r["racewalker"]:
+            types.append("racewalker")
+    if "sprinter" in r:
+        if r["sprinter"]:
+            types.append("sprinter")
+    if "fieldeventer" in r:
+        if r["fieldeventer"]:
+            types.append("fieldeventer")
+    if "distance" in r:
+        if r["distance"]:
+            types.append("distance")
+    if "admin" in r:
+        admin = True
+    if "username" in r and "password" in r and "email" in r and "first_name" in r and "last_name" in r:
+        status = accountManager.register(r["username"],r["password"],r["email"],r["first_name"],r["last_name"],types, admin)
         if status:
             return redirect("/")
         return redirect("/editathletes")
-    return render_template("editathletes.html")
+    return render_template("editathletes.html", username=username, admin=admin)
+
 @app.route("/editcalendar")
 def editcalendar():
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+        username = session["username"]
+    return redirect("/")
     return "Hello World!"
 
 #unfinished business :(
 @app.route("/editresources")
 def editresources():
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+        username = session["username"]
+    return redirect("/")
     return "Hello World!"
 
 @app.route("/resources")
 def resources():
-    return "Hello World!"
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
+    return render_template("resources.html", username = username, admin = admin)
 
 if __name__ == "__main__":
     app.run()

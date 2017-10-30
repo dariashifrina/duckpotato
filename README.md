@@ -1,2 +1,0 @@
-# duckpotato
-Greyduck Website
