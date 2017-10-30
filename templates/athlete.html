@@ -65,11 +65,17 @@
   {% endif %}
 
 {% endblock %}  
-{% block body %}
-<p><h1>{{athlete['first_name']}} {{athlete['last_name']}}</h1><center><h2>|
-     {%for type in athlete['types'] %}
+  {% block body %}
+  <center>
+    <p>
+      <h1>{{athlete['first_name']}} {{athlete['last_name']}}</h1>
+      <img src ="static/img/{{athlete['first_name']}}{{athlete['last_name']}}.jpeg" width="50%">
+      <h2>|
+	{%for type in athlete['types'] %}
         {{type}} |
-        {% endfor %}</h2></center>
+        {% endfor %}
+      </h2>
+  </center>
 </p>
 <p> {{athlete['body']}}</p>
 {% endblock %}

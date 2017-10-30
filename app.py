@@ -4,6 +4,7 @@ import os
 import commands
 import cgi
 import cgitb; cgitb.enable()
+from werkzeug import secure_filename
 
 app = Flask(__name__)
 app.secret_key = "hello"
@@ -23,7 +24,6 @@ def editnews():
     if "admin" in session:
         admin = session["admin"]
         username = session["username"]
-    return redirect("/")
     r = request.form
     if "title" in r and "body" in r and "username" in session: #remember to add admin
         status = newsManager.createNewsPosts(r["title"], r["body"], session["username"])
@@ -137,6 +137,12 @@ def login():
 
 @app.route("/accountsettings", methods=["GET","POST"])
 def accountsettings():
+    username = ""
+    if "username" in session:
+        username = session["username"]
+    admin = False
+    if "admin" in session:
+        admin = session["admin"]
     r = request.form
     password = None if "password" not in r else r["password"]
     email = None if "email" not in r else r["email"]
@@ -144,7 +150,7 @@ def accountsettings():
         accountManager.editAccountSettings(session["username"], password, email)
         return redirect("/accountsettings")
     user = accountManager.getUser(session["username"])
-    return render_template("accountsettings.html", user = user)
+    return render_template("accountsettings.html", user = user, username = username, admin = admin)
 
 
 @app.route("/editannouncements", methods=["GET","POST"]) #must put methods for forms
@@ -187,11 +193,6 @@ def profile():
 
 @app.route("/editProfileDesc", methods=["GET","POST"])
 def editProfileDesc():
-    # if "admin" in session:
-    #     admin = session["admin"]
-    #     username = session["username"]
-    # print("yay")
-    # return redirect("/")
     if "username" in session:
         username = session["username"]
     else:
@@ -208,30 +209,12 @@ def editProfilePic():
     if "admin" in session:
         admin = session["admin"]
         username = session["username"]
-    return redirect("/")
-    cgitb.enable()
-    print "Content-Type: text/html"
-    print
-    print 'start!' 
-    form = cgi.FieldStorage()
-    filedata = form['profilepic']
-    if filedata.file: # field really is an upload
-        #with open("/static/img/"+username["first-name"]+username["last-name"]+".jpeg", 'w') as output:
-            #output.write(filedata.file.read())
-        with file("hi.jpeg", 'w') as outfile:
-             outfile.write(filedata.file.read())
-    # form = cgi.FieldStorage()
-    # print "Hi"
-    # if not form.has_key("profilepic"): return
-    # fileitem = form["profilepic"]
-    # if not fileitem.file: return
-    # fout = file (os.path.join("/static/img/", fileitem.filename), 'wb')
-    # while 1:
-    #     chunk = fileitem.file.read(100000)
-    #     if not chunk: break
-    #     fout.write (chunk)
-    # fout.close()
+    #return redirect("/")
+    f = request.files['profilepic']
+    sfname = "static/img/" + accountManager.getName(username) + ".jpeg"
+    f.save(sfname)
     return render_template("editprofile.html",username=username,admin=admin)
+''''''
 
 @app.route("/editathletes",methods=["GET","POST"])
 def editathletes():
@@ -293,4 +276,5 @@ def resources():
     return render_template("resources.html", username = username, admin = admin)
 
 if __name__ == "__main__":
+    app.debug = True
     app.run()

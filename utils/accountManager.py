@@ -24,6 +24,7 @@ def register(username, password, email, first_name, last_name, types, admin):
 def login(username, password):
     users = MongoClient().track.users
     results = users.find_one({"username":username})
+    #if password == results["password"]:
     if sha1(password).hexdigest() == results["password"]:
         if results["admin"]:
             return 2
@@ -54,7 +55,7 @@ def getFielders():
     allRunners = users.find({})
     ret = []
     for runner in allRunners:
-        if 'fielder' in runner['types']:
+        if 'fieldeventer' in runner['types']:
             ret.append(runner)
     return ret
 
@@ -90,3 +91,12 @@ def getAthlete(fname, lname):
         if fname in runner['first_name'] and lname in runner['last_name']:
             return runner
 
+def getName(usernamez):
+    nameyay = ""
+    users = MongoClient().track.users
+    allRunners = users.find({})
+    for runner in allRunners:
+        if runner['username'] == usernamez:
+            nameyay += runner['first_name']
+            nameyay += runner['last_name']
+            return nameyay

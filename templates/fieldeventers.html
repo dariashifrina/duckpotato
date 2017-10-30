@@ -67,7 +67,7 @@
 {% endblock %}  
 {% block body %}
 {% for fielder in fielders%}
-<p><h2>{{fielder['first_name']}} {{fielder['last_name']}}</h2><br>|
+<p>{{fielder['first_name']}} {{fielder['last_name']}} |
   {%for type in fielder['types'] %}
   {{type}} |
   {% endfor %}
