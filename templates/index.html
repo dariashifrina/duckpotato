@@ -1,70 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Greyduck Girls{% endblock %}
-{% block navbar %}
-{% if username == "" %}
-  <li><a class="active" href="/">Home</a></li>
-  <li><a href="/news">News</a></li>
-  <li><a href="/calendar">Calendar</a></li>
-  <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Athletes</a>
-      <div class="dropdown-content">
-        <a href="/distance">Distance</a>
-        <a href="/racewalkers">Racewalkers</a>
-        <a href="/sprinters">Sprinters</a>
-        <a href="/fieldeventers">Field Eventers</a>
-      </div>
-    </li>
-  <li><a href="/resources">Resources</a></li>
-  <li><a href="/login">Login</a></li>
-  {% endif %}
-  {% if admin == False and username != "" %}
-  <li><a class="active" href="/">Home</a></li>
-  <li><a href="/news">News</a></li>
-  <li><a href="/announcements">Announcements</a></li>
-  <li><a href="/calendar">Calendar</a></li>
-  <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Athletes</a>
-      <div class="dropdown-content">
-        <a href="/distance">Distance</a>
-        <a href="/racewalkers">Racewalkers</a>
-        <a href="/sprinters">Sprinters</a>
-        <a href="/fieldeventers">Field Eventers</a>
-      </div>
-    </li>
-  <li><a href="/resources">Resources</a></li>
-  <li><a href="/accountsettings">Account</a></li>
-  <li><a href="/editprofile">Profile</a></li>
-  {% endif %}
-  {% if admin == True %}
-  <li><a class="active" href="/">Home</a></li>
-  <li><a href="/news">News</a></li>
-  <li><a href="/announcements">Announcements</a></li>
-  <li><a href="/calendar">Calendar</a></li>
-  <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Athletes</a>
-      <div class="dropdown-content">
-        <a href="/distance">Distance</a>
-        <a href="/racewalkers">Racewalkers</a>
-        <a href="/sprinters">Sprinters</a>
-        <a href="/fieldeventers">Field Eventers</a>
-      </div>
-    </li>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Actions</a>
-        <div class="dropdown-content">
-          <a href="/editresources">Edit Resources</a>
-          <a href="/editcalendar">Edit Calendar</a>
-          <a href="/editannouncements">Edit Announcements</a>
-          <a href="/editnews">Edit News</a>
-          <a href="/editathletes">Edit Athletes</a>
-        </div>
-      </li>
-  <li><a href="/resources">Resources</a></li>
-  <li><a href="/accountsettings">Account</a></li>
-  <li><a href="/editprofile">Profile</a></li>
-  {% endif %}
-
-{% endblock %}  
+{% block bodytitle %}Welcome to our wonderful community!{% endblock %}
+{% block indexextra %}
+{% endblock %}
 {% block body %}
-<p> This is some text placed in a transparent box.</p>
+<p>Under construction! Check back soon.</p>
 {% endblock %}

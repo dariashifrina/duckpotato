@@ -1,164 +1,146 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
   <head>
-	<title>{% block title %}{% endblock %}</title>
-    <style>
-    @font-face {
-    font-family: myFirstFont;
-    src: url('Wrexham.ttf');
-    }
-  h1 {
-    font-family: myFirstFont;
-    font-size: 60px;
-    text-align: center;
-    color: black;
-    text-shadow: 2px 2px 2px;
-  }
-  div.transbox {
-  margin: 30px;
-  background-color: #ffffff;
-  border: 1px solid black;
-  opacity: 0.6;
-  filter: alpha(opacity=60); /* For IE8 and earlier */
-}
 
-div.transbox p {
-  margin: 5%;
-  font-weight: bold;
-  color: #000000;
-}
-    ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    margin: auto;
-    text-align: center;
-    }
-    .active {
-    background-color: lightskyblue;
-  }
-/*    img {
-      background-size: cover;
-    background-position: center top;
-    background-position-x: center;
-    background-position-y: top;
-    background-repeat: no-repeat;
-    width: 100%;
-  } */
-    li {
-        text-align:center; 
-        display: inline-block;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    li a, .dropbtn {
-        display: inline-block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
+    <title>{%block title %}{% endblock %}</title>
 
-    li a:hover, .dropdown:hover .dropbtn {
-        background-color: lightblue;
-    }
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    li.dropdown {
-        display: inline-block;
-    }
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
+    <!-- Custom styles for this template -->
+    <link href="../static/css/business-casual.css" rel="stylesheet">
 
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: center;
-    }
+  </head>
 
-    .dropdown-content a:hover {background-color: #f1f1f1}
+  <body>
 
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-</style>
-</head>
-<body background="../static/img/greyduckgirls.jpg">
-  <ul>
-    {% if username == "" %}
-  <li><a href="/">Home</a></li>
-  <li><a href="/news">News</a></li>
-  <li><a href="/calendar">Calendar</a></li>
-  <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Athletes</a>
-      <div class="dropdown-content">
-        <a href="/distance">Distance</a>
-        <a href="/racewalkers">Racewalkers</a>
-        <a href="/sprinters">Sprinters</a>
-        <a href="/fieldeventers">Field Eventers</a>
-      </div>
-    </li>
-  <li><a href="/resources">Resources</a></li>
-  <li><a href="/login">Login</a></li>
-  {% endif %}
-  {% if admin == False and username != "" %}
-  <li><a  href="/">Home</a></li>
-  <li><a href="/news">News</a></li>
-  <li><a href="/announcements">Announcements</a></li>
-  <li><a href="/calendar">Calendar</a></li>
-  <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Athletes</a>
-      <div class="dropdown-content">
-        <a href="/distance">Distance</a>
-        <a href="/racewalkers">Racewalkers</a>
-        <a href="/sprinters">Sprinters</a>
-        <a href="/fieldeventers">Field Eventers</a>
-      </div>
-    </li>
-  <li><a href="/resources">Resources</a></li>
-  <li><a href="/accountsettings">Account</a></li>
-  <li><a href="/editprofile">Profile</a></li>
-  {% endif %}
-  {% if admin == True %}
-  <li><a href="/">Home</a></li>
-  <li><a href="/news">News</a></li>
-  <li><a href="/announcements">Announcements</a></li>
-  <li><a href="/calendar">Calendar</a></li>
-  <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Athletes</a>
-      <div class="dropdown-content">
-        <a href="/distance">Distance</a>
-        <a href="/racewalkers">Racewalkers</a>
-        <a href="/sprinters">Sprinters</a>
-        <a href="/fieldeventers">Field Eventers</a>
-      </div>
-    </li>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Actions</a>
-        <div class="dropdown-content">
-          <a href="/editresources">Edit Resources</a>
-          <a href="/editcalendar">Edit Calendar</a>
-          <a href="/editannouncements">Edit Announcements</a>
-          <a href="/editnews">Edit News</a>
-          <a href="/editathletes">Edit Athletes</a>
+    <div class="tagline-upper text-center text-heading text-shadow text-white mt-5 d-none d-lg-block">GREYDUCK GIRLS</div>
+    <div class="tagline-lower text-center text-expanded text-shadow text-uppercase text-white mb-5 d-none d-lg-block">Stuyvesant's very own track team.</div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-faded py-lg-4">
+      <div class="container">
+        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">GREYDUCK GIRLS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item active px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href="/">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+	    {% if username == "" %}
+            <li class="nav-item px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href="/news">News</a>
+            </li>
+            <li class="nav-item px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href="/calendar">Calendar</a>
+            </li>
+	    <li class="nav-item px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href="/athletes">Athletes</a>
+		 </li>
+	    <li class="nav-item px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href="/resources">Resources</a>
+		</li> 
+	    <li class="nav-item px-lg-4">
+		 <a class="nav-link text-uppercase text-expanded" href="/login">Login</a>
+               </li>
+	    {% endif %}
+	    {% if admin == False and username != "" %}
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/news">News</a>
+            </li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/announcements">Announcements</a>
+	    </li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/calendar">Calendar</a>
+            </li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/athletes">Athletes</a>
+	    </li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/resources">Resources</a>
+</li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/accountsettings">Account</a>
+</li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/editprofile">Profile</a>
+</li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/login">Logout</a>
+</li>
+	    {% endif %}
+	    {% if admin == True and username != "" %}
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/announcements">Announcements</a>
+	    </li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/calendar">Calendar</a>
+            </li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/athletes">Athletes</a>
+</li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/resources">Resources</a>
+</li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/actions">Actions</a>
+</li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/accountsettings">Account</a>
+</li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/editprofile">Profile</a>
+</li>
+<li class="nav-item px-lg-4">
+  <a class="nav-link text-uppercase text-expanded" href="/login">Logout</a>
+</li>
+	    {% endif %}
+	  
+          </ul>
         </div>
-      </li>
-  <li><a href="/resources">Resources</a></li>
-  <li><a href="/accountsettings">Account</a></li>
-  <li><a href="/editprofile">Profile</a></li>
-  {% endif %}
-</ul>
-<div class="transbox">
-	{% block body %}{% endblock %}
-  </div>
+      </div>
+    </nav>
+
+{% block indexextra %} {% endblock %}
+      <div class="bg-faded p-4 my-4">
+        <hr class="divider">
+        <h2 class="text-center text-lg text-uppercase my-0"> <!-- insert for emphasis -->
+          <strong><h2>{% block bodytitle %}{% endblock %}</h2></strong>
+        </h2>
+        <hr class="divider">
+        <img class="img-fluid float-left mr-4 d-none d-lg-block" src="img/intro-pic.jpg" alt="">
+	<h3>
+        {% block body %}{% endblock %}
+</h3>
+      </div>
+
+    <!-- /.container -->
+
+    <footer class="bg-faded text-center py-5">
+      <div class="container">
+        <p class="m-0">Copyright &copy; Daria Shifrina 2017</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
   </body>
+
 </html>

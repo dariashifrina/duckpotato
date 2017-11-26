@@ -1,33 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Edit Athletes{% endblock %}
-{% block navbar %}
-  <li><a href="/">Home</a></li>
-  <li><a href="/news">News</a></li>
-  <li><a href="/announcements">Announcements</a></li>
-  <li><a href="/calendar">Calendar</a></li>
-  <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Athletes</a>
-      <div class="dropdown-content">
-        <a href="/distance">Distance</a>
-        <a href="/racewalkers">Racewalkers</a>
-        <a class="active" href="/sprinters">Sprinters</a>
-        <a href="/fieldeventers">Field Eventers</a>
-      </div>
-    </li>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Actions</a>
-        <div class="dropdown-content">
-          <a href="/editresources">Edit Resources</a>
-          <a href="/editcalendar">Edit Calendar</a>
-          <a href="/editannouncements">Edit Announcements</a>
-          <a href="/editnews">Edit News</a>
-          <a href="/editathletes">Edit Athletes</a>
-        </div>
-      </li>
-  <li><a href="/resources">Resources</a></li>
-  <li><a href="/accountsettings">Account</a></li>
-  <li><a href="/editprofile">Profile</a></li>
-{% endblock %}  
 {% block body %}
 <h1> Add Athletes</h1>
 <form action="/editathletes" method="post">

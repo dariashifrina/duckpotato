@@ -65,6 +65,9 @@
   {% endif %}
 
 {% endblock %}  
+{% block bodytitle %}
+Announcements
+{% endblock %}
 {% block body %}
         {% for post in newsPosts %}
         <h1>{{post["body"] | safe}}</h1><br>

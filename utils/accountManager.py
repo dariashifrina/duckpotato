@@ -17,7 +17,7 @@ def register(username, password, email, first_name, last_name, types, admin):
         "admin":admin,
         "body":"hi"
     })
-    shutil.copy("duck.jpeg","static/img/"+ first_name + last_name +".jpeg")
+    shutil.copy("greyduckgirls.jpg","static/img/"+ first_name + last_name +".jpeg")
 
     return True
 

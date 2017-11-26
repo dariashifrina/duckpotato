@@ -1,27 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Greyduck Login{% endblock %}
-{% block navbar %}
-  <li><a href="/">Home</a></li>
-  <li><a href="/news">News</a></li>
-  <li><a href="/calendar">Calendar</a></li>
-  <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Athletes</a>
-      <div class="dropdown-content">
-        <a href="/distance">Distance</a>
-        <a href="/racewalkers">Racewalkers</a>
-        <a href="/sprinters">Sprinters</a>
-        <a href="/fieldeventers">Field Eventers</a>
-      </div>
-    </li>
-  <li><a href="/resources">Resources</a></li>
-  <li><a class="active" href="/login">Login</a></li>
-
-{% endblock %}  
+{% block title %}Greyduck Login{% endblock %} 
+{% block bodytitle %}
+Login Below
+{% endblock %}
 {% block body %}
-<h1> Login</h1>
+<p>
 <form action="/login" method="post">
   Username:<input type="text" name="username" required></br>
   Password:<input type="password" name="password" required></br>
  <input type="submit">
 </form>
+</p>
 {% endblock %}
